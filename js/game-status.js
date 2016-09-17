@@ -1,8 +1,10 @@
-var gameStatus = {
-  points: 0,
-  lose: false,
-  paused: false
-};
+function GAMESTATUS() {
+  this.points = 0;
+  this.lose = false;
+  this.paused = false;
+}
+
+var gameStatus = new GAMESTATUS();
 
 function loseGame() {
   gameStatus.lose = true;
@@ -10,7 +12,7 @@ function loseGame() {
 }
 
 function restartGame() {
-  gameStatus.lose = false;
+  gameStatus = new GAMESTATUS();
   document.getElementById('lose').className = 'message';
   destroySnake();
   snakeProperty = new SNAKE();

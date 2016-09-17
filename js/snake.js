@@ -8,6 +8,7 @@ function SNAKE() {
     this.moviments = ['right', 'left', 'up', 'down'];
     this.xMax = groundSettings.width / 2;
     this.zMax = groundSettings.height / 2;
+    this.lastMoviment = this.moviments[1];
 }
 
 var snakeProperty = new SNAKE();
@@ -31,6 +32,7 @@ function initSnake() {
         Snake.push(createSnakeBody( (snakeProperty.size * 2) * i, snakeProperty.y, snakeProperty.z, head));
         head = false;
     }
+    Snake[0].lastMoviment = snakeProperty.moviments[1];
     return Snake;  
 }
 
@@ -49,7 +51,7 @@ function moveAllSnake() {
 }
 
 function moveSnakeToRight() {
-    if(!gameStatus.paused && !gameStatus.lose) {
+    if(!gameStatus.paused && !gameStatus.lose && Snake[0].lastMoviment !== snakeProperty.moviments[1]) {
         if(Snake[0].position.x < (snakeProperty.xMax - snakeProperty.size)) {
             moveAllSnake();
             Snake[0].position.x += snakeProperty.size * 2; 
@@ -61,7 +63,7 @@ function moveSnakeToRight() {
 }
 
 function moveSnakeToLeft() {
-    if(!gameStatus.paused && !gameStatus.lose) { 
+    if(!gameStatus.paused && !gameStatus.lose && Snake[0].lastMoviment !== snakeProperty.moviments[0]) { 
         if(-Snake[0].position.x < (snakeProperty.xMax - snakeProperty.size)) {
             moveAllSnake();
             Snake[0].position.x -= snakeProperty.size * 2; 
@@ -74,7 +76,7 @@ function moveSnakeToLeft() {
 }
 
 function moveSnakeToUp() {
-    if(!gameStatus.paused && !gameStatus.lose) { 
+    if(!gameStatus.paused && !gameStatus.lose  && Snake[0].lastMoviment !== snakeProperty.moviments[3]) { 
         if(-Snake[0].position.z < (snakeProperty.zMax - snakeProperty.size)) {
             moveAllSnake();
             Snake[0].position.z -= snakeProperty.size * 2; 
@@ -86,7 +88,7 @@ function moveSnakeToUp() {
 }
 
 function moveSnakeToDown() {
-    if(!gameStatus.paused && !gameStatus.lose) { 
+    if(!gameStatus.paused && !gameStatus.lose  && Snake[0].lastMoviment !== snakeProperty.moviments[2]) { 
         if(Snake[0].position.z < (snakeProperty.zMax - snakeProperty.size)) {
             moveAllSnake();
             Snake[0].position.z += snakeProperty.size * 2;  
@@ -99,7 +101,7 @@ function moveSnakeToDown() {
 
 function autoMoveSnake(speed) {
     setTimeout(function() {
-        if(!gameStatus.paused && !gameStatus.lose) {
+        if(!gameStatus.paused && !gameStatus.lose  && Snake[0].lastMoviment !== snakeProperty.moviments[0]) {
             moveSnakeToLeft()
         }
         autoMoveSnake(speed);
