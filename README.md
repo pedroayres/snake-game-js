@@ -2,14 +2,17 @@
 #### SNAKE GAME ####
 ####################
 
-- This game was created to computer graphics materia
+## How to use:
+ - Fork the project.
+ - Load the page in any HTTP Server.
+ - Enjoy it ~
 
+## Description: 
+- Computer Engineer
+- This game was created to computer graphics materia to Universidade São Francisco 2016
 
+## Contributor:
+ - Leonardo Pitton
 
-
-PEDRO AYRES NETTO VIEIRA
-
-#pedroayres
-#snakegame
-#js
-#javascript #html
+## Lib used: 
+- THREE.JS
