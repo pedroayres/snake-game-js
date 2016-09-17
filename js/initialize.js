@@ -1,0 +1,2 @@
+render();
+//autoMoveSnake(500);
