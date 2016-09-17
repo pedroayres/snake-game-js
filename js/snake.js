@@ -1,13 +1,14 @@
 // Define snake body property
 function SNAKE() {
     this.size = 3;
+    this.bodySize = 5;
     this.textureHead = 'images/snake_skin_1.jpg';
     this.textureBody = 'images/snake_skin_3.jpg';
     this.z = 5;
     this.y = 0;
     this.moviments = ['right', 'left', 'up', 'down'];
-    this.xMax = groundSettings.width / 2;
-    this.zMax = groundSettings.height / 2;
+    this.xMax = (groundSettings.width / 2) - this.size;
+    this.zMax = (groundSettings.height / 2) - this.size;
     this.lastMoviment = this.moviments[1];
 }
 
@@ -24,11 +25,11 @@ function createSnakeBody(x, y, z, head) {
     return snakeBody;
 }
 
-// Start the snake with a body of three spheres.
+// Create a snake with length based on bodySize.
 function initSnake() {
     var Snake = [];
     var head = true;
-    for(var i = 0; i < 3; i++) {
+    for(var i = 0; i < snakeProperty.bodySize; i++) {
         Snake.push(createSnakeBody( (snakeProperty.size * 2) * i, snakeProperty.y, snakeProperty.z, head));
         head = false;
     }
@@ -52,51 +53,77 @@ function moveAllSnake() {
 
 function moveSnakeToRight() {
     if(!gameStatus.paused && !gameStatus.lose && Snake[0].lastMoviment !== snakeProperty.moviments[1]) {
-        if(Snake[0].position.x < (snakeProperty.xMax - snakeProperty.size)) {
+        if(Snake[0].position.x < snakeProperty.xMax) {
             moveAllSnake();
             Snake[0].position.x += snakeProperty.size * 2; 
             Snake[0].lastMoviment = snakeProperty.moviments[0];
         } else {
             loseGame();
         }
+        eatFood();
+        checkIfEatYourself();
     }
 }
 
 function moveSnakeToLeft() {
     if(!gameStatus.paused && !gameStatus.lose && Snake[0].lastMoviment !== snakeProperty.moviments[0]) { 
-        if(-Snake[0].position.x < (snakeProperty.xMax - snakeProperty.size)) {
+        if(-Snake[0].position.x < snakeProperty.xMax) {
             moveAllSnake();
             Snake[0].position.x -= snakeProperty.size * 2; 
             Snake[0].lastMoviment = snakeProperty.moviments[1];
         } else {
             loseGame();
         }
+        eatFood();
+        checkIfEatYourself();
     }
     console.log(Snake[0].position.x) 
 }
 
 function moveSnakeToUp() {
     if(!gameStatus.paused && !gameStatus.lose  && Snake[0].lastMoviment !== snakeProperty.moviments[3]) { 
-        if(-Snake[0].position.z < (snakeProperty.zMax - snakeProperty.size)) {
+        if(-Snake[0].position.z < snakeProperty.zMax) {
             moveAllSnake();
             Snake[0].position.z -= snakeProperty.size * 2; 
             Snake[0].lastMoviment = snakeProperty.moviments[2];
         } else {
             loseGame();
         }
+        eatFood();
+        checkIfEatYourself();
     }
 }
 
 function moveSnakeToDown() {
     if(!gameStatus.paused && !gameStatus.lose  && Snake[0].lastMoviment !== snakeProperty.moviments[2]) { 
-        if(Snake[0].position.z < (snakeProperty.zMax - snakeProperty.size)) {
+        if(Snake[0].position.z < snakeProperty.zMax) {
             moveAllSnake();
             Snake[0].position.z += snakeProperty.size * 2;  
             Snake[0].lastMoviment = snakeProperty.moviments[3];
         } else {
             loseGame();
         }
+        eatFood();
+        checkIfEatYourself();
     }
+}
+
+function eatFood() {
+    // console.log(Snake[0].position.x, Snake[0].position.z)
+    // console.log(food.position.x, food.position.z)
+    //if(Snake[0].position.z === food.z && Snake[0].position.x === food.x) {
+    //   var tmpSnake = Snake[Snake.length -1].position;
+    //   var newSnake = createSnakeBody(tmpSnake.x + snakeProperty.size, tmpSnake.y, tmpSnake.z);
+    //   Snake.push(newSnake);
+    //}
+}
+
+function checkIfEatYourself() {
+    Snake.forEach(function(body, index){
+        if(index > 0 && Snake[0].position.x === body.position.x && Snake[0].position.z === body.position.z) {
+            loseGame();
+        }
+    });
 }
 
 function autoMoveSnake(speed) {

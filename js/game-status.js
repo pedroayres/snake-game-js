@@ -12,10 +12,12 @@ function loseGame() {
 }
 
 function restartGame() {
+  destroyFood();
   gameStatus = new GAMESTATUS();
   document.getElementById('lose').className = 'message';
   destroySnake();
   snakeProperty = new SNAKE();
+  foodSetting = new FOOD();
   Snake = initSnake();
 }
 
