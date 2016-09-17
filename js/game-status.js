@@ -12,7 +12,7 @@ function loseGame() {
 }
 
 function restartGame() {
-  destroyFood();
+  //destroyFood();
   gameStatus = new GAMESTATUS();
   drawPoint();
   document.getElementById('lose').className = 'message';
