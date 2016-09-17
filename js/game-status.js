@@ -14,6 +14,7 @@ function loseGame() {
 function restartGame() {
   destroyFood();
   gameStatus = new GAMESTATUS();
+  drawPoint();
   document.getElementById('lose').className = 'message';
   destroySnake();
   snakeProperty = new SNAKE();
@@ -29,4 +30,13 @@ function pauseGame() {
 function resumeGame() {
   document.getElementById('pause').className = 'message';
   gameStatus.paused = false;
+}
+
+function gainPoint() {
+  gameStatus.points += 1;
+  drawPoint();
+}
+
+function drawPoint() {
+  document.getElementById('game-points').innerHTML = gameStatus.points;
 }

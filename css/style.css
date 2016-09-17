@@ -87,3 +87,11 @@
 .show {
   opacity: 0.7;
 }
+
+#game-points {
+  position: absolute;
+  right: 80px;
+  top: 0;
+  font-size: 90px;
+  color: black;
+}

@@ -4,7 +4,7 @@ function SNAKE() {
     this.bodySize = 5;
     this.textureHead = 'images/snake_skin_1.jpg';
     this.textureBody = 'images/snake_skin_3.jpg';
-    this.z = 5;
+    this.z = 6;
     this.y = 0;
     this.moviments = ['right', 'left', 'up', 'down'];
     this.xMax = (groundSettings.width / 2) - this.size;
@@ -77,7 +77,6 @@ function moveSnakeToLeft() {
         eatFood();
         checkIfEatYourself();
     }
-    console.log(Snake[0].position.x) 
 }
 
 function moveSnakeToUp() {
@@ -109,13 +108,12 @@ function moveSnakeToDown() {
 }
 
 function eatFood() {
-    // console.log(Snake[0].position.x, Snake[0].position.z)
-    // console.log(food.position.x, food.position.z)
-    //if(Snake[0].position.z === food.z && Snake[0].position.x === food.x) {
-    //   var tmpSnake = Snake[Snake.length -1].position;
-    //   var newSnake = createSnakeBody(tmpSnake.x + snakeProperty.size, tmpSnake.y, tmpSnake.z);
-    //   Snake.push(newSnake);
-    //}
+    if(Snake[0].position.x === food.position.x && Snake[0].position.z === food.position.z){
+        var tmpSnake = Snake[Snake.length -1].position;
+        var newSnake = createSnakeBody(tmpSnake.x + 4, tmpSnake.y, tmpSnake.z);
+        Snake.push(newSnake);
+        gainPoint();
+    }       
 }
 
 function checkIfEatYourself() {

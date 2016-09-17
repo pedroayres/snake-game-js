@@ -1,8 +1,8 @@
 function FOOD() {
-  this.size = 3;
-  this.x = randomPosition(-snakeProperty.xMax, snakeProperty.xMax);
+  this.size = 4;
+  this.x = 24 //randomPosition(-snakeProperty.xMax, snakeProperty.xMax);
   this.y = 0;
-  this.z = randomPosition(-snakeProperty.zMax, snakeProperty.zMax);
+  this.z = 24 //randomPosition(-snakeProperty.zMax, snakeProperty.zMax);
   this.texture = 'images/food_skin.jpg'
 }
 var foodSetting = new FOOD();
