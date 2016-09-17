@@ -21,8 +21,15 @@ function keyboard(event) {
 
     // Enter
     if(event.keyCode === 13) {
-      var tmpSnake = Snake[Snake.length -1].position;
-      var newSnake = createSnakeBody(tmpSnake.x + 4, tmpSnake.y, tmpSnake.z);
-      Snake.push(newSnake);
+      if(!gameStatus.paused && !gameStatus.lose) {
+        pauseGame();
+      } else if(gameStatus.paused && !gameStatus.lose){
+        resumeGame();
+      } else if(!gameStatus.paused && gameStatus.lose) {
+        restartGame();
+      }
+      // var tmpSnake = Snake[Snake.length -1].position;
+      // var newSnake = createSnakeBody(tmpSnake.x + 4, tmpSnake.y, tmpSnake.z);
+      // Snake.push(newSnake);
     }
 }

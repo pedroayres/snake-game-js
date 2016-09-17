@@ -1,24 +1,26 @@
 // Define snake body property
-var snakeProperty = {
-    size: 3,
-    textureHead: 'images/snake_skin_1.jpg',
-    textureBody: 'images/snake_skin_3.jpg',
-    z: 5,
-    y: 0,
-    moviments: ['right', 'left', 'up', 'down'],
-    xMax: groundSettings.width / 2,
-    zMax: groundSettings.height / 2
-};
+function SNAKE() {
+    this.size = 3;
+    this.textureHead = 'images/snake_skin_1.jpg';
+    this.textureBody = 'images/snake_skin_3.jpg';
+    this.z = 5;
+    this.y = 0;
+    this.moviments = ['right', 'left', 'up', 'down'];
+    this.xMax = groundSettings.width / 2;
+    this.zMax = groundSettings.height / 2;
+}
+
+var snakeProperty = new SNAKE();
 
 // Create a method to render each sphere of snake body.
 function createSnakeBody(x, y, z, head) {
-    var SphereGeo = new THREE.SphereGeometry(snakeProperty.size, 20,10);
-    var SphereMat = new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load(head ? snakeProperty.textureHead : snakeProperty.textureBody)});
-    var Sphere = new THREE.Mesh(SphereGeo, SphereMat);
-    Sphere.position.set(x, y, z);
-    Sphere.castShadow = true;
-    scenarioSettings.add(Sphere);
-    return Sphere;
+    var snakeBodyGeo = new THREE.SphereGeometry(snakeProperty.size, 20,10);
+    var snakeBodyMat = new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load(head ? snakeProperty.textureHead : snakeProperty.textureBody)});
+    var snakeBody = new THREE.Mesh(snakeBodyGeo, snakeBodyMat);
+    snakeBody.position.set(x, y, z);
+    snakeBody.castShadow = true;
+    scenarioSettings.add(snakeBody);
+    return snakeBody;
 }
 
 // Start the snake with a body of three spheres.
@@ -30,6 +32,12 @@ function initSnake() {
         head = false;
     }
     return Snake;  
+}
+
+function destroySnake() {
+    Snake.forEach(function(body){
+        scenarioSettings.remove(body);
+    });
 }
 
 // Methos to move the snake
@@ -47,7 +55,7 @@ function moveSnakeToRight() {
             Snake[0].position.x += snakeProperty.size * 2; 
             Snake[0].lastMoviment = snakeProperty.moviments[0];
         } else {
-            gameStatus.lose = true;
+            loseGame();
         }
     }
 }
@@ -59,7 +67,7 @@ function moveSnakeToLeft() {
             Snake[0].position.x -= snakeProperty.size * 2; 
             Snake[0].lastMoviment = snakeProperty.moviments[1];
         } else {
-            gameStatus.lose = true;
+            loseGame();
         }
     }
     console.log(Snake[0].position.x) 
@@ -72,7 +80,7 @@ function moveSnakeToUp() {
             Snake[0].position.z -= snakeProperty.size * 2; 
             Snake[0].lastMoviment = snakeProperty.moviments[2];
         } else {
-            gameStatus.lose = true;
+            loseGame();
         }
     }
 }
@@ -84,14 +92,16 @@ function moveSnakeToDown() {
             Snake[0].position.z += snakeProperty.size * 2;  
             Snake[0].lastMoviment = snakeProperty.moviments[3];
         } else {
-            gameStatus.lose = true;
+            loseGame();
         }
     }
 }
 
 function autoMoveSnake(speed) {
     setTimeout(function() {
-        moveSnakeToLeft()
+        if(!gameStatus.paused && !gameStatus.lose) {
+            moveSnakeToLeft()
+        }
         autoMoveSnake(speed);
     }, speed);
 }
