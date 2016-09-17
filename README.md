@@ -1,18 +1,16 @@
-####################
-#### SNAKE GAME ####
-####################
+## SNAKE GAME 3D IN JAVASCRIPT
 
-## How to use:
+### How to use:
  - Fork the project.
  - Load the page in any HTTP Server.
  - Enjoy it ~
 
-## Description: 
+### Description: 
 - Computer Engineer
 - This game was created to computer graphics materia to Universidade São Francisco 2016
 
-## Contributor:
+### Contributor:
  - Leonardo Pitton
 
-## Lib used: 
+### Lib used: 
 - THREE.JS

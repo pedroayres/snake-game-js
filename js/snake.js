@@ -101,8 +101,16 @@ function moveSnakeToDown() {
 
 function autoMoveSnake(speed) {
     setTimeout(function() {
-        if(!gameStatus.paused && !gameStatus.lose  && Snake[0].lastMoviment !== snakeProperty.moviments[0]) {
-            moveSnakeToLeft()
+        if(!gameStatus.paused && !gameStatus.lose){
+            if(Snake[0].lastMoviment === snakeProperty.moviments[0]) {
+                moveSnakeToRight()
+            } else if(Snake[0].lastMoviment === snakeProperty.moviments[1]) {
+                moveSnakeToLeft();
+            } else if(Snake[0].lastMoviment === snakeProperty.moviments[2]) {
+                moveSnakeToUp();
+            } else {
+                moveSnakeToDown();
+            }
         }
         autoMoveSnake(speed);
     }, speed);

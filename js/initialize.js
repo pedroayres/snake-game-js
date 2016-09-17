@@ -1,2 +1,2 @@
 render();
-//autoMoveSnake(500);
+autoMoveSnake(500);
