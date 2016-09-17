@@ -28,8 +28,5 @@ function keyboard(event) {
       } else if(!gameStatus.paused && gameStatus.lose) {
         restartGame();
       }
-      // var tmpSnake = Snake[Snake.length -1].position;
-      // var newSnake = createSnakeBody(tmpSnake.x + 4, tmpSnake.y, tmpSnake.z);
-      // Snake.push(newSnake);
     }
 }

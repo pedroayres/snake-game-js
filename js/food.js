@@ -1,10 +1,11 @@
 function FOOD() {
   this.size = 4;
-  this.x = 24 //randomPosition(-snakeProperty.xMax, snakeProperty.xMax);
-  this.y = 0;
-  this.z = 24 //randomPosition(-snakeProperty.zMax, snakeProperty.zMax);
+  this.x = randomPosition(-snakeProperty.xMax, snakeProperty.xMax, snakeProperty.size * 2);
+  this.y = 2;
+  this.z = randomPosition(-snakeProperty.zMax, snakeProperty.zMax, snakeProperty.size * 2);
   this.texture = 'images/food_skin.jpg'
 }
+
 var foodSetting = new FOOD();
 var foodGeometry = new THREE.CubeGeometry(foodSetting.size, foodSetting.size, foodSetting.size);
 var foodTexture = new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load(foodSetting.texture)});
@@ -18,8 +19,23 @@ function renderFood() {
   scenarioSettings.add(food);
 }
 
-function randomPosition(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+
+
+function randomPosition(min, max, matchNumber) {
+  var arr = [];
+  var number = 0;
+  while(number < max) {
+    number += matchNumber;
+    arr.push(number);
+  }
+
+  number = 0;
+  while(number > min) {
+    number -= matchNumber;
+    arr.push(number);
+  }
+  var idx = Math.floor( Math.random() * arr.length );
+  return arr[idx]; 
 }
 
 function destroyFood() {

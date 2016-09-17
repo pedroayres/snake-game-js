@@ -5,7 +5,7 @@ function SNAKE() {
     this.textureHead = 'images/snake_skin_1.jpg';
     this.textureBody = 'images/snake_skin_3.jpg';
     this.z = 6;
-    this.y = 0;
+    this.y = 2;
     this.moviments = ['right', 'left', 'up', 'down'];
     this.xMax = (groundSettings.width / 2) - this.size;
     this.zMax = (groundSettings.height / 2) - this.size;

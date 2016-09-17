@@ -12,8 +12,9 @@ function loseGame() {
 }
 
 function restartGame() {
-  //destroyFood();
   gameStatus = new GAMESTATUS();
+  destroyFood();
+  renderFood();
   drawPoint();
   document.getElementById('lose').className = 'message';
   destroySnake();
@@ -35,6 +36,8 @@ function resumeGame() {
 function gainPoint() {
   gameStatus.points += 1;
   drawPoint();
+  destroyFood();
+  renderFood();
 }
 
 function drawPoint() {
